@@ -1,0 +1,12 @@
+*RC Circuits
+
+r1 in out 1k
+c2 out 0 1n
+vin in 0 pulse 0 5ns 0ns 100ns 100ns 10us 20us
+.tran 10n 60u
+.control
+run
+plot v(in) v(out)
+.endc
+
+
