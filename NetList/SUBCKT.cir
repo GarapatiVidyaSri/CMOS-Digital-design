@@ -1,0 +1,20 @@
+.include TSMC_180nm.txt
+.param LAMBDA=0.09u
+.param width_N=10*LAMBDA
+.param width_P=20*LAMBDA
+.global Vdd gnd
+vdd vdd gnd 1.8V
+vin a gnd pulse 0 1.8 0ns 1ns 1ns 10ns 20ns
+.SUBCKT inv y x vdd gnd 
+M1 y x gnd gnd CMOSN W={width_N} L={2*LAMBDA}
+M2 y x vdd vdd CMOSP W={width_P} L={2*LAMBDA}
+.ends inv
+x1 b a vdd gnd inv
+cout b gnd 100f
+.tran 0.1n 200n
+.control
+run
+plot v(b) v(a)
+set color0=white
+set color1=black
+.endc
